@@ -2,7 +2,7 @@ PROGRAMMES := bin/words bin/makedict bin/makestem bin/makeefil bin/makeewds bin/
 
 all: $(PROGRAMMES) data
 
-programmes:
+$(PROGRAMMES):
 	gprbuild -Pwords
 
 DICTFILE.GEN: DICTLINE.GEN bin/makedict
@@ -29,6 +29,11 @@ clean_data:
 	rm -f -- $(GENERATED_DATA_FILES)
 
 clean:
-	rm -f -- obj/* bin/*
-	rm -f -- CHECKEWD. 
+	rm -f -- obj/commands/* obj/latin_utils/* obj/support_utils/* bin/* lib/*
+	rm -f -- CHECKEWD.
 	rm -f -- DICTFILE.GEN STEMFILE.GEN INDXFILE.GEN EWDSLIST.GEN INFLECTS.SEC
+
+.PHONY: test
+
+test:
+	(cd test; ./run-tests.sh)
